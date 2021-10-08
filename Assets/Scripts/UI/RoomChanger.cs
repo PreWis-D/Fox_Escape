@@ -11,7 +11,7 @@ public class RoomChanger : MonoBehaviour
     [SerializeField] private List<Button> _buttons = new List<Button>();
     [SerializeField] private Canvas _buttonsRightAndLeft;
 
-    private int _TargetMiniGameId;
+    private int _targetMiniGameId;
     private int _currentWallNumber = 0;
     private GameObject _currentWall;
     private GameObject _currentMiniGame;
@@ -20,7 +20,7 @@ public class RoomChanger : MonoBehaviour
     private bool _isGoToMiniGame = false;
     private bool _isCurrentWallActive = true;
 
-    public event UnityAction WallChanged;
+    public event UnityAction RoomChanged;
 
     protected void Awake()
     {
@@ -61,7 +61,7 @@ public class RoomChanger : MonoBehaviour
 
         for (int i = 0; i < _miniGames.Count; i++)
         {
-            if (_miniGames[i].MiniGameId == _TargetMiniGameId)
+            if (_miniGames[i].MiniGameId == _targetMiniGameId)
             {
                 _currentWall.SetActive(false);
                 _currentMiniGame = _miniGames[i].gameObject;
@@ -109,7 +109,7 @@ public class RoomChanger : MonoBehaviour
         if (_changeRoomInJob != null)
             StopChangeRoom();
 
-        WallChanged?.Invoke();
+        RoomChanged?.Invoke();
         _changeRoomInJob = StartCoroutine(ChangeRoom(_wallsRoom[_currentWallNumber], isGoToMiniGame));
     }
 
@@ -130,7 +130,7 @@ public class RoomChanger : MonoBehaviour
     public void MiniGameButton(int id)
     {
         _isGoToMiniGame = true;
-        _TargetMiniGameId = id;
+        _targetMiniGameId = id;
 
         StartChangeRoom(_isGoToMiniGame);
     }

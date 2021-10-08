@@ -11,7 +11,7 @@ public class CauldronConteiner : MonoBehaviour
     private int _targetItemsForWin = 4;
     private bool _isItemsNeededForCouldron => _playerBag.ItemId > 0 && _playerBag.ItemId < 5;
 
-    public event UnityAction PoisoWasBrewed;
+    public event UnityAction PoisonWasBrewed;
     public event UnityAction<Item, ItemView> IngridientAdded;
 
     private void OnMouseDown()
@@ -26,7 +26,7 @@ public class CauldronConteiner : MonoBehaviour
 
         if (_currentCountItems == _targetItemsForWin)
         {
-            PoisoWasBrewed?.Invoke();
+            PoisonWasBrewed?.Invoke();
             this.gameObject.SetActive(false);
         }
     }

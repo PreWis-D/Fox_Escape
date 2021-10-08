@@ -7,10 +7,10 @@ using UnityEngine.Events;
 public class FlaskHighlighter : MonoBehaviour
 {
     [SerializeField] private GameObject _flask;
-    [SerializeField] private float _height;
-    [SerializeField] private float _duration;
     [SerializeField] private int _flaskId;
 
+    private float _height = 2.5f;
+    private float _duration = 0.5f;
     private bool _isSelected = false;
     private Rigidbody2D _rigidbody2D;
     private float _startPosition;
@@ -20,7 +20,7 @@ public class FlaskHighlighter : MonoBehaviour
     private void Start()
     {
         _rigidbody2D = _flask.GetComponent<Rigidbody2D>();
-        _startPosition = _flask.GetComponent<Rigidbody2D>().position.y;
+        _startPosition = _rigidbody2D.position.y;
     }
 
     private void OnMouseDown()
@@ -29,14 +29,20 @@ public class FlaskHighlighter : MonoBehaviour
             _isSelected = !_isSelected;
 
         if (_isSelected == false)
-            ChangePositionFlaskY(_height);
+            LiftUp();
         else
-            ChangePositionFlaskY(_startPosition);
+            ReturnStartingPosition();
+
+        _isSelected = !_isSelected;
     }
 
-    private void ChangePositionFlaskY(float height)
+    private void LiftUp()
     {
-        _rigidbody2D.DOMove(Vector2.up * height, _duration, false);
-        _isSelected = !_isSelected;
+        _rigidbody2D.DOMove(Vector2.up * _height, _duration);
+    }
+
+    private void ReturnStartingPosition()
+    {
+        _rigidbody2D.DOMove(Vector2.up * _startPosition, _duration);
     }
 }

@@ -18,13 +18,13 @@ public class MainScreenDimmer : MonoBehaviour
     private void OnEnable()
     {
         if (_roomChanger != null)
-            _roomChanger.WallChanged += OnRoomChanged;
+            _roomChanger.RoomChanged += OnRoomChanged;
     }
 
     private void OnDisable()
     {
         if (_roomChanger != null)
-            _roomChanger.WallChanged -= OnRoomChanged;
+            _roomChanger.RoomChanged -= OnRoomChanged;
     }
 
     private void OnRoomChanged()

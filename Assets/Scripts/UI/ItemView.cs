@@ -26,7 +26,6 @@ public class ItemView : MonoBehaviour
     public void Render(Item item)
     {
         _item = item;
-
         _icon.sprite = item.Icon;
     }
 

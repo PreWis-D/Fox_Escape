@@ -40,7 +40,7 @@ public class FlaskGameLogic : MonoBehaviour
 
     private void StopSwapPlaces()
     {
-        StopCoroutine(SwapPlaces(_currentFlask, _targetFlask));
+        StopCoroutine(_swapPlacesInJob);
     }
 
     private void Move(GameObject flask, Vector2 currentPosition, Vector2 targetPosition)
@@ -61,16 +61,16 @@ public class FlaskGameLogic : MonoBehaviour
                 _currentFlask = null;
 
             if (_currentFlask == null)
-                GetPositionFlask(ref _currentFlask, flask, ref _positionOfSelectedFlask);
+            {
+                _currentFlask = flask.gameObject;
+                _positionOfSelectedFlask = flask.transform.position;
+            }
             else
-                GetPositionFlask(ref _targetFlask, flask, ref _positionOfTargetFlask);
+            {
+                _targetFlask = flask.gameObject;
+                _positionOfTargetFlask = flask.transform.position;
+            }
         }
-    }
-
-    private void GetPositionFlask(ref GameObject flask, FlaskHighlighter targetFlask, ref Vector2 positionObject)
-    {
-        flask = targetFlask.gameObject;
-        positionObject = flask.transform.position;
     }
 
     private void Update()
@@ -84,14 +84,14 @@ public class FlaskGameLogic : MonoBehaviour
                 TryGetFlask(hit);
             else
                 return;
+
+            if (_swapPlacesInJob != null)
+                StopSwapPlaces();
         }
 
         if (_currentFlask != null && _targetFlask != null)
         {
-            if (_swapPlacesInJob != null)
-                StopSwapPlaces();
-
-            StartCoroutine(SwapPlaces(_currentFlask, _targetFlask));
+            _swapPlacesInJob = StartCoroutine(SwapPlaces(_currentFlask, _targetFlask));
         }
     }
 }

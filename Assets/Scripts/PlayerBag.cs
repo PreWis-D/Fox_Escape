@@ -16,12 +16,12 @@ public class PlayerBag : MonoBehaviour
 
     private void OnEnable()
     {
-        _inventory.SelectedItemInInventory += OnSelectItem;
+        _inventory.SelectedItem += OnSelectItem;
     }
 
     private void OnDisable()
     {
-        _inventory.SelectedItemInInventory -= OnSelectItem;
+        _inventory.SelectedItem -= OnSelectItem;
     }
 
     public void OnSelectItem(Item item, ItemView itemView)

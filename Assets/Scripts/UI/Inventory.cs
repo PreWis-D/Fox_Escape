@@ -15,7 +15,7 @@ public class Inventory : MonoBehaviour
 
     private Item _currentItem;
 
-    public event UnityAction<Item, ItemView> SelectedItemInInventory;
+    public event UnityAction<Item, ItemView> SelectedItem;
 
     private void OnEnable()
     {
@@ -43,7 +43,7 @@ public class Inventory : MonoBehaviour
         if (_currentItem != null)
             _currentItem.UnSelect();
 
-        SelectedItemInInventory?.Invoke(item, itemView);
+        SelectedItem?.Invoke(item, itemView);
         item.Select();
         _currentItem = item;
         itemView.SelectButtonClick -= OnSelectButtonClick;

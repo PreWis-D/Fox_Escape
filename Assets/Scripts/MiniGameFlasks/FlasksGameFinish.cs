@@ -14,13 +14,13 @@ public class FlasksGameFinish : MonoBehaviour
     [SerializeField] private Transform _flasks;
 
     private const string _stringWin = "Win";
-    private int[] _flasksId;
-    private int[] _pointsId;
+    private int[] _currentArrayFlaskIds;
+    private int[] _targetArrayFlasksIds;
 
     private void Start()
     {
-        _flasksId = CreateArray(_flasks, true);
-        _pointsId = CreateArray(_points, false);
+        _currentArrayFlaskIds = CreateArray(_flasks, true);
+        _targetArrayFlasksIds = CreateArray(_points, false);
     }
 
     private void OnEnable()
@@ -35,7 +35,7 @@ public class FlasksGameFinish : MonoBehaviour
 
     private void OnTryFinishGame()
     {
-        _flasksId = EditArray(_flasks);
+        _currentArrayFlaskIds = EditArray(_flasks);
 
         bool isfinish = CheckFinishGame();
 
@@ -55,7 +55,7 @@ public class FlasksGameFinish : MonoBehaviour
         int[] result = new int[target.childCount];
 
         for (int i = 0; i < target.childCount; i++)
-            temp[i] = target.GetChild(i).GetComponent<Transform>();
+            temp[i] = target.GetChild(i).transform;
 
         var filtered = temp.OrderBy(temp => temp.transform.localPosition.x).ToArray();
         
@@ -82,9 +82,9 @@ public class FlasksGameFinish : MonoBehaviour
 
     private bool CheckFinishGame()
     {
-        for (int i = 0; i < _pointsId.Length; i++)
+        for (int i = 0; i < _targetArrayFlasksIds.Length; i++)
         {
-            if (_pointsId[i] == _flasksId[i])
+            if (_targetArrayFlasksIds[i] == _currentArrayFlaskIds[i])
                 continue;
             return false;
         }
