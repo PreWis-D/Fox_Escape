@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 
 public class RuneConteiner : MonoBehaviour
 {
-    public event UnityAction<float> RuneSelected;
+    public event UnityAction<int> RuneSelected;
 
     private void Update()
     {

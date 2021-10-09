@@ -5,9 +5,9 @@ using UnityEngine.Events;
 
 public class Rune : MonoBehaviour
 {
-    private float _scorePoint = 0.1f;
+    private int _scorePoint = 1;
 
-    public float ScorePoint => _scorePoint;
+    public int ScorePoint => _scorePoint;
 
     public void DeactivateObjectAfterAnimation()
     {
